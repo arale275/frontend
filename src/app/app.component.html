@@ -1,10 +1,11 @@
-<nav>
+<!-- Display navigation menu for all routes except '/main' -->
+<nav *ngIf="router.url !== '/main'">
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/system-characterization">System Characterization</a>
   <a routerLink="/report-generation">Report Generation</a>
   <a routerLink="/user-registration">User Registration</a>
   <a routerLink="/view-edit-characterization">View Edit Characterization</a>
-  <!-- Add other navigation links as needed -->
 </nav>
 
-<router-outlet></router-outlet>
+<!-- Display main content for the '/main' route -->
+<router-outlet *ngIf="router.url === '/main'"></router-outlet>
