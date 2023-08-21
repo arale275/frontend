@@ -1,0 +1,13 @@
+<!-- Customize the template according to your requirements -->
+<div>
+    <h2>Edit Characterization</h2>
+    <form [formGroup]="characterizationForm" (ngSubmit)="updateCharacterization()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name">
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <!-- Add more form controls as needed -->
+      <button type="submit">Update Characterization</button>
+    </form>
+  </div>
+  
