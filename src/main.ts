@@ -1,7 +1,17 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { AppModule } from './app/app.module';
 
+declare global {
+  interface Window {
+    gapi: any;
+  }
+}
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+const script = document.createElement('script');
+script.src = 'https://apis.google.com/js/api.js';
+script.onload = () => {
+  platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch((err) => console.error(err));
+};
+document.head.appendChild(script);

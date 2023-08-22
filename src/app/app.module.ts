@@ -1,40 +1,41 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule here
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { AuthInterceptor } from './auth.interceptor'; // Import the AuthInterceptor
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { UserRegistrationComponent } from './user-registration/user-registration.component';
-import { SystemCharacterizationFormComponent } from './system-characterization-form/system-characterization-form.component';
-import { ViewEditCharacterizationComponent } from './view-edit-characterization/view-edit-characterization.component';
-import { ReportGenerationComponent } from './report-generation/report-generation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { MainContentComponent } from './main-content/main-content.component';
-import { GoogleAuthComponentTsComponent } from './google-auth.component.ts/google-auth.component.ts.component';
-import { FacebookAuthComponentTsComponent } from './facebook-auth.component.ts/facebook-auth.component.ts.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UserRegistrationComponent,
-    SystemCharacterizationFormComponent,
-    ViewEditCharacterizationComponent,
-    ReportGenerationComponent,
-    MainPageComponent,
-    MainContentComponent,
-    GoogleAuthComponentTsComponent,
-    FacebookAuthComponentTsComponent,
-  ], // List of components declared in the module
+  declarations: [AppComponent, AuthCallbackComponent],
   imports: [
     BrowserModule,
-    HttpClientModule, // Add HttpClientModule to the imports array
-    AppRoutingModule, // Add any other modules you want to import here
+    HttpClientModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    AuthModule.forRoot({
+      config: {
+        authority: 'https://accounts.google.com',
+        redirectUrl: window.location.origin,
+        postLogoutRedirectUri: window.location.origin,
+        clientId:
+          '274409989970-mg4rboqgh3ghr17pdiu9056m6o1fg072.apps.googleusercontent.com',
+        scope: 'openid profile email offline_access',
+        responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
+        logLevel: LogLevel.Debug,
+      },
+    }),
   ],
-  providers: [], // List of services provided by the module
-  bootstrap: [AppComponent], // The main component to bootstrap
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, // Add the AuthInterceptor
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

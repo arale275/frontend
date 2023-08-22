@@ -1,33 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiURL = 'http://localhost:3000'; // Replace with your Express.js server URL
+  private apiURL = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
 
-  getSomeData() {
-    return this.http.get(`${this.apiURL}/some-endpoint`);
+  // ...
+
+  registerWithFacebook(accessToken: string): Observable<any> {
+    const url = `${this.apiURL}/auth/register/facebook`;
+    return this.http.post(url, { accessToken });
   }
 
-  postSomeData(data: any) {
-    return this.http.post(`${this.apiURL}/some-endpoint`, data);
-  }
-
-  registerUser(user: any) {
-    return this.http.post(`${this.apiURL}/register`, user); // Corrected apiUrl to apiURL
-  }
-  generateReport() {
-    return this.http.get(`${this.apiURL}/generate-report`);
-  }
-
-  // Define the submitCharacterization method
-  submitCharacterization(characterizationData: any) {
-    return this.http.post(
-      `${this.apiURL}/submit-characterization`,
-      characterizationData
-    );
+  registerWithGoogle(accessToken: string): Observable<any> {
+    const url = `${this.apiURL}/auth/register/google`;
+    return this.http.post(url, { accessToken });
   }
 }

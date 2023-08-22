@@ -1,11 +1,16 @@
-<!-- Display navigation menu for all routes except '/main' -->
-<nav *ngIf="router.url !== '/main'">
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/system-characterization">System Characterization</a>
-  <a routerLink="/report-generation">Report Generation</a>
-  <a routerLink="/user-registration">User Registration</a>
-  <a routerLink="/view-edit-characterization">View Edit Characterization</a>
-</nav>
+<div class="main-page">
+  <h1>Welcome to the Systems Planning App</h1>
+  <p>
+    This application helps you manage system characterizations and generate
+    reports.
+  </p>
+  <div class="buttons">
+    <button (click)="loginWithGoogle()">Login with Google</button>
+    <button (click)="loginWithFacebook()">Login with Facebook</button>
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
 
-<!-- Display main content for the '/main' route -->
-<router-outlet *ngIf="router.url === '/main'"></router-outlet>
+<router-outlet></router-outlet>
+
+<!-- Rest of your main page content -->
