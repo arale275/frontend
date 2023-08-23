@@ -17,8 +17,10 @@ export class ApiService {
     return this.http.post(url, { accessToken });
   }
 
-  registerWithGoogle(accessToken: string): Observable<any> {
-    const url = `${this.apiURL}/auth/register/google`;
-    return this.http.post(url, { accessToken });
+  registerWithGoogle(): Observable<any> {
+    const googleOAuthProxyUrl = 'http://localhost:3000/google-oauth-proxy';
+    return this.http.get(googleOAuthProxyUrl);
   }
 }
+
+

@@ -20,9 +20,9 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
     FormsModule,
     AuthModule.forRoot({
       config: {
-        authority: 'https://accounts.google.com',
-        redirectUrl: window.location.origin,
-        postLogoutRedirectUri: window.location.origin,
+        authority: 'http://localhost:3000/google-oauth-proxy',
+        redirectUrl: 'http://localhost:4200',
+        postLogoutRedirectUri: 'http://localhost:4200',
         clientId:
           '274409989970-mg4rboqgh3ghr17pdiu9056m6o1fg072.apps.googleusercontent.com',
         scope: 'openid profile email offline_access',
@@ -39,3 +39,5 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// Update this URL
